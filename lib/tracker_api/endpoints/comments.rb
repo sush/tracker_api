@@ -15,6 +15,12 @@ module TrackerApi
           Resources::Comment.new({ story_id: story_id }.merge(comment))
         end
       end
+
+      def create(project_id, story_id, params={})
+        data = client.post("/projects/#{project_id}/stories/#{story_id}/comments", params: params).body
+
+        Resources::Comment.new({ story_id: story_id }.merge(data))
+      end
     end
   end
 end
